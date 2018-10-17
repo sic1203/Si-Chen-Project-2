@@ -15,9 +15,10 @@ require(readxl)
 require(stringr)
 require(RColorBrewer)
 
+
+
 income<- read.csv('C:/Users/csvan/Documents/GitHub/SC_Project2/ScGH_project2/ssi.csv',head=TRUE)
-
-
+#create ui
 ui <- navbarPage("The relationship between obesity and income in Pitssburgh",
                  theme = shinytheme("cosmo"),
                  tabPanel("Plot",
@@ -30,20 +31,23 @@ ui <- navbarPage("The relationship between obesity and income in Pitssburgh",
                                           multiple = TRUE,
                                           selectize = TRUE,
                                           selected=c("Allentown", "Arlington","Banksville","East Hills", "East Liberty", "Beechview", "Bedford Dwellings", "Beltzhoover", "Bluff")),
-                              #Income Select
+                              #Total Income without ssi Select
                               sliderInput("InSelect",
                                           "Estimate Income without SSI:",
                                           min = min(income$Estimate..Total....No.Social.Security.income, na.rm = T),
                                           max = max(income$Estimate..Total....No.Social.Security.income, na.rm = T),
                                           value = c("1400", "6000"),
                                           step = 1),
+                              #total income select
                               sliderInput("SsiSelect",
                                           "Social Security Income:",
                                           min=min(income$Estimate..Total.,na.rm=T),
                                           max=max(income$Estimate..Total.,na.rm=T),
                                           value=c("200","6000"),
                                           step=1),
-                              actionButton("reset", "Reset Your Selection", icon = icon("refresh"))
+                              #reset button
+                              actionButton("reset", "Reset Your Selection", icon = icon("refresh")
+                                           )
                             ),
                             # Output plot
                             mainPanel(
@@ -53,14 +57,17 @@ ui <- navbarPage("The relationship between obesity and income in Pitssburgh",
                             )
                           )
                           ),
+                 #tab panel
                  tabPanel("Table",
                           inputPanel(
                             downloadButton("downloadData","Download the Social Security Income Data in Pittsburgh")),
-                          fluidPage(DT::dataTableOutput("table"))
+                          fluidPage(DT::dataTableOutput("table")
+                                    )
                           )
                  )
 # Define server logic
 server <- function(input, output, session = session) {
+  #income without ssi reactive
   icInput <- reactive({
     no.filter <- income %>%
       # Slider income without social security Filter
@@ -70,8 +77,7 @@ server <- function(input, output, session = session) {
     }
     return(no.filter)
   })
-
-  
+  #income with ssi reactive
   ssiInput <- reactive({
     ssi.filter <- income %>%
       filter(Estimate..Total. >= input$SsiSelect[1] & Estimate..Total. <= input$SsiSelect[2])
@@ -80,7 +86,7 @@ server <- function(input, output, session = session) {
     }
     return(ssi.filter)
   })
-  
+  #plot1 , use plotly compare two income in each neighborhood
   output$plot1<-renderPlotly({
     dat1<- icInput()
     dat2<-ssiInput()
@@ -114,12 +120,11 @@ server <- function(input, output, session = session) {
     )
   })
   )
+  #table oupt
   output$table <- DT::renderDataTable({
     no.filter <- icInput()
     subset(no.filter, select = c(Neighborhood, Estimate..Total.,Estimate..Total....No.Social.Security.income))
   })
-  
-
   # Updating the URL Bar
   observe({
     print(reactiveValuesToList(input))
@@ -144,7 +149,6 @@ server <- function(input, output, session = session) {
     updateSliderInput(session, "SsiSelect", value = c("200", "6000"))
     showNotification("Hey! You did it! You have successfully reset the filters", type = "message")
   })
-
 }
 # Run the application 
 shinyApp(ui = ui, server = server, enableBookmarking = "url")
