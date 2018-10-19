@@ -5,8 +5,8 @@ account: sichen1203
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 524331
-bundleId: 1651926
+bundleId: 1651986
 url: https://sichen1203.shinyapps.io/ScGH_project2/
-when: 1539974414.30588
+when: 1539976159.94228
 asMultiple: FALSE
 asStatic: FALSE
