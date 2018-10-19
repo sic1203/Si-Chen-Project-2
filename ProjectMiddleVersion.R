@@ -53,7 +53,7 @@ ui <- navbarPage("Pitssburgh Neighborhood Income",
                  theme = shinytheme("cosmo"),
                  #first page, intruduction about the project
                  tabPanel("Introduction",
-                          mainPanel(img(src ="ba.jpg",
+                          mainPanel(img(src ="ba.png",
                                         width="1600", 
                                         height="1000"))),
                  #create map panel 
