@@ -19,6 +19,7 @@ library(rgeos)
 
 Ngbh.load <-readOGR('https://opendata.arcgis.com/datasets/dbd133a206cc4a3aa915cb28baa60fd4_0.geojson')
 Ball.load <-readOGR('https://opendata.arcgis.com/datasets/87f3b2bdfa6646319a56e86521480efd_0.geojson')
+# https://services1.arcgis.com/YZCmUqbcsUpOKfj7/arcgis/rest/services/Ballfields_PGH/FeatureServer/0/query?where=FIELD_NAME+LIKE+%27M%25%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=geojson&token=
 
 # Define UI for application
 ui <- navbarPage("Allegheny Ballfileds Location",
@@ -62,12 +63,12 @@ server <- function(input, output) {
     #greenInf <- greenInfInputs()
     Ngbh<-NgbhInputs()
     leaflet() %>%
-      addProviderTiles("Stamen.Toner", group="Toner",options = providerTileOptions(noWrap = TRUE)) %>%
       addProviderTiles("OpenStreetMap.BlackAndWhite", group =" Street",options = providerTileOptions(noWrap = TRUE)) %>%
+      addProviderTiles("Stamen.Toner", group="Toner",options = providerTileOptions(noWrap = TRUE)) %>%
       setView(-80,40.45,zoom=12) %>%
       #add polygon layer
       addPolygons(data = Ngbh) %>%
-      addCircleMarkers(data=Ball.load,radius=6,color="blue",stroke=FALSE,fillOpacity = 0.5,group="")
+      addCircleMarkers(data=Ball.load,radius=6,color="blue",stroke=FALSE,fillOpacity = 0.5,group="")%>%
       #add layers control
       addLayersControl(
         baseGroups = c("Toner", "Street"),

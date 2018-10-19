@@ -107,11 +107,12 @@ server <- function(input, output, session = session) {
       addProviderTiles("Stamen.Toner", group="Toner",options = providerTileOptions(noWrap = TRUE)) %>%
       setView(-80,40.45,zoom=12) %>%
       #add polygon layer
-      addPolygons(data = Ngbh) %>%
-      addCircleMarkers(data=Ball.load,radius=6,color=~pal(Ball.load$active),stroke=FALSE,fillOpacity = 0.5)%>%
+      addPolygons(data = Ngbh,group="Neighborhood") %>%
+      addCircleMarkers(data=Ball.load,radius=6,color=~pal(Ball.load$active),stroke=FALSE,fillOpacity = 0.5,group="Ballfields")%>%
       #add layers control
       addLayersControl(
         baseGroups = c("Toner", "Street"),
+        overlayGroups = c("Ballfields","Neighborhood"),
         options = layersControlOptions(collapsed = FALSE))
   })
   #load neighborhood data from dataset
