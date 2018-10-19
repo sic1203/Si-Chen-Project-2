@@ -1,0 +1,13 @@
+name: ScGH_project2
+title: ScGH_project2
+username:
+account: sichen1203
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 524331
+bundleId: 1651118
+url: https://sichen1203.shinyapps.io/ScGH_project2/
+when: 1539945677.94426
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .gitattributes|.RData|addpoints.R|APIFORDATASETDONE.R|dataset mapfinal.R|dataset mapfinalpic.R|dataset final.R|exceptmapDONE.R|insertApi.R|just test map api.R|mapjeojson.R|noresponse.R|obse.R|ssi.csv|testall.R|trymap.R|obesity_rates/obesity_rates.cpg|obesity_rates/obesity_rates.dbf|obesity_rates/obesity_rates.prj|obesity_rates/obesity_rates.sbn|obesity_rates/obesity_rates.sbx|obesity_rates/obesity_rates.shp|obesity_rates/obesity_rates.shx

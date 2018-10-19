@@ -5,13 +5,17 @@ library(jsonlite)
 library(dplyr)
 library(tidyr)
 library(rgdal)
+library(leaflet)
 library(shinythemes)
 library(shinydashboard)
 library(reshape2)
 library(plotly)
 library(tibble)
+require(leaflet.extras)
 require(readxl)
 require(stringr)
+require(RColorBrewer)
+library(rgeos)
 
 ckanSQL <- function(url) {
   # Make the Request
@@ -82,7 +86,7 @@ ui <- navbarPage("Pitssburgh Neighborhood Income",
                                           "Choose the Nehborhood:",
                                           choices = Ngh,
                                           multiple = TRUE,
-                                          selected=c("Allentown", "Arlington","Banksville","East Hills", "East Liberty", "Beechview", "Bedford Dwellings", "Beltzhoover", "Bluff")),
+                                          selected=c("Allentown", "Arlington","Banksville","East Hills", "Beechview", "Bedford Dwellings", "Beltzhoover")),
                               #Total Income without ssi Select
                               sliderInput("InSelect",
                                           "Estimate Income without SSI:",
