@@ -46,15 +46,17 @@ Icnum<-as.numeric(Ic)
 
 #retrieve geojson file for map
 Ngbh.load <-readOGR('https://opendata.arcgis.com/datasets/dbd133a206cc4a3aa915cb28baa60fd4_0.geojson')
+# Ideally you would wany to do an API call here isntead of the entire dataset.
 Ball.load <-readOGR('https://opendata.arcgis.com/datasets/87f3b2bdfa6646319a56e86521480efd_0.geojson')
 
 #create ui
 ui <- navbarPage("Pitssburgh Neighborhood Income",
                  theme = shinytheme("cosmo"),
                  #first page, intruduction about the project
+                 # Nice work with the image! Having directions and stuff like that was a great addition. One little thing I would have changed though is setting the image to be 100% as not every user is going to have a screen of those dimensions.
                  tabPanel("Introduction",
                           mainPanel(img(src ="ba.png",
-                                        width="1600", 
+                                        width="1600", # aka replace these numbers with 100% will simply take up the whole page and not force scrolling.
                                         height="1000"))),
                  #create map panel 
                  tabPanel("Ball fileds in Allegheny",
@@ -83,7 +85,7 @@ ui <- navbarPage("Pitssburgh Neighborhood Income",
                             sidebarPanel(
                               # Different neighborhood select
                               selectInput("NghSelect",
-                                          "Choose the Nehborhood:",
+                                          "Choose the Nehborhood:", # Small typo
                                           choices = Ngh,
                                           multiple = TRUE,
                                           selected=c("Allentown", "Arlington","Banksville","East Hills", "Beechview", "Bedford Dwellings", "Beltzhoover")),
